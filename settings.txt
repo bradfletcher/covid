@@ -1,0 +1,9 @@
+population 500
+visualization True 
+weeks 2
+businesses 50
+homes 300
+schools 5
+hoursToRecover 72 
+width 1800 
+height 1000 

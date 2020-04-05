@@ -17,15 +17,15 @@ seed(datetime.now)
 # recovered t/f 
 # hospitalized t/f 
 
+totalInfected = 1 
+recovered = 0 
+dead = 0 
+
 # parameters for the simulation that can vary 
 # probably that if two people were at the same location that disease was spread 
 chanceOfTransmission = .1
 # days until infected person recovers and is not longer contegios 
 hoursToRecover = 72  
-totalInfected = 1 
-recovered = 0 
-dead = 0 
-
 # how many people in the city
 population = 500 
 businesses = 10
@@ -40,6 +40,34 @@ visualization = False
 # width 
 width = 1400
 height = 800
+
+f = open("settings.txt", "r" ) 
+
+#iterate over the settings file and set the varibles 
+for l in f: 
+    words = l.split() 
+    if(words[0] == "population" ): 
+        population = int(words[1])  
+    if(words[0] == "visualization") : 
+        if(words[1] == "True") : 
+            visualization = True 
+        else:
+            visualization = False 
+    if(words[0] == "width" ) : 
+        width = int(words[1])  
+    if(words[0] == "height" ) :
+        height = int(words[1]) 
+    if(words[0] == "weeks" ): 
+        weeks = int(words[1]) 
+    if(words[0] == "businesses" ) : 
+        businesses = int(words[1]) 
+    if(words[0] == "schools" ) : 
+        schools = int(words[1]) 
+    if(words[0] == "homes" ) :
+        homes = int(words[1]) 
+    if(words[0] == "hoursToRecover" ) :
+        hoursToRecover = int(words[1]) 
+    print(l )  
 
 if (visualization ): 
     win = GraphWin('Simulation', width, height) # give title and dimensions
