@@ -31,13 +31,18 @@ population = 500
 businesses = 10
 schools = 5
 homes = 30
+weeks = 1 
+
+# turn visuals on or off 
+visualization = False 
 
 # graphics params 
 # width 
 width = 1400
 height = 800
 
-win = GraphWin('Simulation', width, height) # give title and dimensions
+if (visualization ): 
+    win = GraphWin('Simulation', width, height) # give title and dimensions
 
 class Person:
   def __init__(self, currently_infected, days_infected, alive, recovered, hospitalized, age, marker, markerDrawn, location, x, y):
@@ -85,7 +90,8 @@ for l in range(homes):
 f = open("stats.csv", "w")
 f.write("Hours"  + "," ) 
 f.write("Infected" + ",") 
-f.write("Recovered" + "," )
+f.write("Recovered" + "," ) 
+f.write("Dead" ) 
 f.write("\n"); 
 
 #initial setup of people 
@@ -115,7 +121,6 @@ for x in range(population):
     per1.marker = Circle(Point(locale.x + randHor, locale.y + randVert ), 2 ) 
     per1.x = locale.x + randHor 
     per1.y = locale.y + randVert 
-    #per1.marker = Circle(Point(locale.x, locale.y ), 2 ) 
     people.append(per1)
 
 people[0].currently_infected = True 
@@ -133,7 +138,8 @@ def redraw():
             circ.setFill("yellow")
         
         if (l.markerDrawn == False ): 
-            circ.draw(win)
+            if (visualization ) :
+                circ.draw(win)
             l.markerDrawn = True 
 
     for p in people:
@@ -144,7 +150,8 @@ def redraw():
             else:
                 circ.setFill("red")
                 circ.setOutline("red")
-            circ.draw(win) 
+            if(visualization ) : 
+                circ.draw(win) 
             p.markerDrawn = True 
 
 def formatTime(hours ):
@@ -184,44 +191,47 @@ def move() :
 # This is the simulation loop 
 # It will iterate through each timestep here 
 redraw() 
-for t in range(0, 24*7*8): 
+for t in range(0, 24*7* weeks ): 
     #update the timestamp 
-    message = Text(Point(win.getWidth()/2, win.getHeight() - 20 ), 'Time 0 days 0 hours '  )
-    message.setText(formatTime(t))
-    message.setSize(20)
-    message.draw(win)
+    if(visualization ) : 
+        message = Text(Point(win.getWidth()/2, win.getHeight() - 20 ), 'Time 0 days 0 hours '  )
+        message.setText(formatTime(t))
+        message.setSize(20)
+        message.draw(win)
 
     #write to the stats file 
     f.write(str(t) + "," ) 
     f.write(str(totalInfected) + ",") 
     f.write(str(recovered ) + "," )
+    f.write(str(dead ) )
     f.write("\n"); 
 
 
     #update the infection count  
-    message2 = Text(Point(win.getWidth() - 300  , win.getHeight() - 20 ), ' Infected '  )
-    message2.setText("Infected " + str(totalInfected ) )
-    message2.setSize(20)
-    message2.setTextColor("red" ) 
-    message2.draw(win)
+    if(visualization ) : 
+        message2 = Text(Point(win.getWidth() - 300  , win.getHeight() - 20 ), ' Infected '  )
+        message2.setText("Infected " + str(totalInfected ) )
+        message2.setSize(20)
+        message2.setTextColor("red" ) 
+        message2.draw(win)
 
-    #update the infection count  
-    message3 = Text(Point(200 , win.getHeight() - 20 ), ' Population '  )
-    message3.setText("Population: " + str(population ) )
-    message3.setSize(20)
-    message3.setTextColor("blue" ) 
-    message3.draw(win)
+        #update the infection count  
+        message3 = Text(Point(200 , win.getHeight() - 20 ), ' Population '  )
+        message3.setText("Population: " + str(population ) )
+        message3.setSize(20)
+        message3.setTextColor("blue" ) 
+        message3.draw(win)
 
-    message4 = Text(Point(win.getWidth() - 180 , win.getHeight() - 20 ), ' Recovered '  )
-    message4.setText("Recovered: " + str( recovered ) )
-    message4.setSize(20)
-    message4.setTextColor("green" ) 
-    message4.draw(win)
+        message4 = Text(Point(win.getWidth() - 180 , win.getHeight() - 20 ), ' Recovered '  )
+        message4.setText("Recovered: " + str( recovered ) )
+        message4.setSize(20)
+        message4.setTextColor("green" ) 
+        message4.draw(win)
 
-    message5 = Text(Point(win.getWidth() - 50  , win.getHeight() - 20 ), ' Dead '  )
-    message5.setText("Dead: " + str( dead ) )
-    message5.setSize(20)
-    message5.draw(win)
+        message5 = Text(Point(win.getWidth() - 50  , win.getHeight() - 20 ), ' Dead '  )
+        message5.setText("Dead: " + str( dead ) )
+        message5.setSize(20)
+        message5.draw(win)
 
     # time.sleep(.1) 
     
@@ -257,13 +267,16 @@ for t in range(0, 24*7*8):
 
     #move people to new location or have them stay put 
     move()
-            
-    message.undraw()
-    message2.undraw() 
-    message3.undraw() 
-    message4.undraw() 
-    message5.undraw() 
+
+    if(visualization ):         
+        message.undraw()
+        message2.undraw() 
+        message3.undraw() 
+        message4.undraw() 
+        message5.undraw() 
 
 f.close()
-win.getMouse()
-win.close()
+
+if(visualization ) : 
+    win.getMouse()
+    win.close()
