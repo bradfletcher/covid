@@ -23,9 +23,12 @@ dead = 0
 
 # parameters for the simulation that can vary 
 # probably that if two people were at the same location that disease was spread 
-chanceOfTransmission = .1
+chanceOfTransmission = 1 
 # days until infected person recovers and is not longer contegios 
 hoursToRecover = 72  
+# percent chance that a person moves in a given hour 
+chanceOfMoving = 5
+nonRecoveryRate = 2 
 # how many people in the city
 population = 500 
 businesses = 10
@@ -67,7 +70,10 @@ for l in f:
         homes = int(words[1]) 
     if(words[0] == "hoursToRecover" ) :
         hoursToRecover = int(words[1]) 
-    print(l )  
+    if(words[0] == "chanceOfTransmission") : 
+        chanceOfTransmission = int(words[1]) 
+    if(words[0] == "chanceOfMoving") : 
+        chanceOfMoving = int(words[1]) 
 
 if (visualization ): 
     win = GraphWin('Simulation', width, height) # give title and dimensions
@@ -191,11 +197,11 @@ def formatTime(hours ):
 
 def move() : 
     for p in people:
-        chanceOfMoving = randint(0, 99 ) 
-        if (chanceOfMoving < 5 ) : 
+        chanceOfMovingRand = randint(0, 99 ) 
+        if (chanceOfMovingRand < chanceOfMoving ) : 
             # move the person 
             locationCur = p.location 
-            locationCur.people.remove(p)
+            locationCur.people.remove(p) 
             locationCur.numPeople -= 1 
             # print("cur loc x: " + str(locationCur.x) + ", y: " + str(locationCur.y) ) 
             locationNew = whereIsPerson() 
@@ -271,8 +277,11 @@ for t in range(0, 24*7* weeks ):
                 p.days_infected += 1 
                 if ( p.days_infected >= hoursToRecover ) : 
                     prob = randint(0, 99) 
-                    if( prob < 2 ) :
+                    if( prob < nonRecoveryRate ) :
                         p.alive = False 
+                        l.people.remove(p)
+                        people.remove(p) 
+                        totalInfected -= 1 
                         dead += 1 
                     else : 
                         p.recovered = True 
@@ -283,7 +292,7 @@ for t in range(0, 24*7* weeks ):
                         totalInfected -= 1 
 
             #update people status 
-            if(l.infected == True and randint(0, 99) > 95 and p.recovered == False ) : 
+            if(l.infected == True and randint(0, 99) < chanceOfTransmission and p.recovered == False ) : 
                 if(p.currently_infected == False ):
                     totalInfected += 1 
                 p.currently_infected = True  
