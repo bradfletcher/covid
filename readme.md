@@ -46,11 +46,7 @@ From the console type python plot.py
 
 A graph should appear.  A pdf of the graph is also created.  
 
-<object data="https://drive.google.com/viewerng/viewer?embedded=true&url=https://github.com/bradfletcher/covid/blob/master/figure1.pdf" type="application/pdf" width="700px" height="700px">
-    <embed src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://github.com/bradfletcher/covid/blob/master/figure1.pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/bradfletcher/covid/blob/master/figure1.pdf">Download PDF</a>.</p>
-    </embed>
-</object>
+<img src="https://github.com/bradfletcher/covid/blob/master/figure1.png" > 
 
 ## Methodology
 This model contains 2 entities, people and locations.  

@@ -42,4 +42,5 @@ ax.text(0.6, 0.5, "Recovered: " + str(series2[-1]) + "\n Dead: " + str(series3[-
 
 plt.legend(loc='upper left') 
 plt.savefig('figure1.pdf') 
+plt.savefig('figure1.png') 
 plt.show() 
