@@ -6,16 +6,6 @@ import time
 
 # seed random number generator
 seed(datetime.now)
-# generate some integers
-
-# locations have the following properties
-# capacity
-# type - home, essential business, non-essentail business, school 
-
-# people
-# currently_infected t/f
-# recovered t/f 
-# hospitalized t/f 
 
 totalInfected = 1 
 recovered = 0 
@@ -197,7 +187,7 @@ def formatTime(hours ):
 
 def move() : 
     for p in people:
-        chanceOfMovingRand = randint(0, 99 ) 
+        chanceOfMovingRand = randint(0, 999 ) 
         if (chanceOfMovingRand < chanceOfMoving ) : 
             # move the person 
             locationCur = p.location 
@@ -275,7 +265,7 @@ for t in range(0, 24*7* weeks ):
         for p in l.people: 
             if (p.currently_infected == True ) : 
                 p.days_infected += 1 
-                if ( p.days_infected >= hoursToRecover ) : 
+                if ( p.days_infected >= hoursToRecover + randint(0, 72) - 36 ) : 
                     prob = randint(0, 99) 
                     if( prob < nonRecoveryRate ) :
                         p.alive = False 
@@ -292,7 +282,7 @@ for t in range(0, 24*7* weeks ):
                         totalInfected -= 1 
 
             #update people status 
-            if(l.infected == True and randint(0, 99) < chanceOfTransmission and p.recovered == False ) : 
+            if(l.infected == True and randint(0, 999) < chanceOfTransmission and p.recovered == False ) : 
                 if(p.currently_infected == False ):
                     totalInfected += 1 
                 p.currently_infected = True  

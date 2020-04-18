@@ -4,6 +4,8 @@ import matplotlib as mpl
 import matplotlib.style as mplstyle
 mplstyle.use('fast')
 
+fig, ax = plt.subplots()
+
 f = open("stats.csv", "r" ) 
 
 series1 = [] 
@@ -30,6 +32,14 @@ plt.plot(xaxis, series3, 'black',  markevery=5, label="dead" )
 plt.ylabel("people")
 plt.xlabel("days")
 plt.title("COVID-19 Simulation" )
+
+# these are matplotlib.patch.Patch properties
+props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+
+# place a text box in upper left in axes coords 
+ax.text(0.6, 0.5, "Recovered: " + str(series2[-1]) + "\n Dead: " + str(series3[-1]) , transform=ax.transAxes, fontsize=14,
+        verticalalignment='bottom', bbox=props)
+
 plt.legend(loc='upper left') 
 plt.savefig('figure1.pdf') 
-plt.show()
+plt.show() 
