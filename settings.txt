@@ -4,16 +4,20 @@ population 5000
 visualization False 
 # The width of the visualization window 
 width 1800 
+# The height of the visualization window 
 height 1000 
 # The duration of the simulation 
-weeks 20 
+weeks 10 
 # The number of businesses
 businesses 500
+businessCapacity 50 
 homes 300
+homeCapacity 6 
 schools 50
+schoolCapacity 1000 
 # The number of hours it takes an infected person to recover 
 hoursToRecover 240 
 # The tenth of a percent chance the infection is transmitted 
-chanceOfTransmission 5
+chanceOfTransmission 5 
 # The tenth of a percent chance of a person moving to a new location each time step 
 chanceOfMoving 10 

@@ -37,7 +37,7 @@ plt.title("COVID-19 Simulation" )
 props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
 
 # place a text box in upper left in axes coords 
-ax.text(0.6, 0.5, "Recovered: " + str(series2[-1]) + "\n Dead: " + str(series3[-1]) , transform=ax.transAxes, fontsize=14,
+ax.text(0.6, 0.5, "Infected: " + str(series1[-1]) + "\nRecovered: " + str(series2[-1]) + "\nDead: " + str(series3[-1]) , transform=ax.transAxes, fontsize=14,
         verticalalignment='bottom', bbox=props)
 
 plt.legend(loc='upper left') 

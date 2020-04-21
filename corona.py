@@ -22,8 +22,11 @@ nonRecoveryRate = 2
 # how many people in the city
 population = 500 
 businesses = 10
+businessCapacity = 25 
 schools = 5
+schoolCapacity = 1000 
 homes = 30
+homeCapacity = 4 
 weeks = 1 
 
 # turn visuals on or off 
@@ -54,10 +57,16 @@ for l in f:
         weeks = int(words[1]) 
     if(words[0] == "businesses" ) : 
         businesses = int(words[1]) 
+    if(words[0] == "businessCapacity" ) : 
+        businessCapacity = int(words[1]) 
     if(words[0] == "schools" ) : 
-        schools = int(words[1]) 
-    if(words[0] == "homes" ) :
+        schools  = int(words[1]) 
+    if(words[0] == "schoolCapacity" ) : 
+        schoolCapacity = int(words[1]) 
+    if(words[0] == "homes" ) : 
         homes = int(words[1]) 
+    if(words[0] == "homeCapacity" ) : 
+        homeCapacity = int(words[1]) 
     if(words[0] == "hoursToRecover" ) :
         hoursToRecover = int(words[1]) 
     if(words[0] == "chanceOfTransmission") : 
@@ -100,15 +109,15 @@ locations = []
 for l in range(businesses):
     x = randint(0, width) 
     y = randint(0, height) 
-    locations.append(Location(25, "Essential Business", True,x , y , 0, [], False, Circle(Point(x,y), 8), False)) 
+    locations.append(Location(businessCapacity, "Essential Business", True,x , y , 0, [], False, Circle(Point(x,y), 8), False)) 
 for l in range(schools):
     x = randint(0, width) 
     y = randint(0, height) 
-    locations.append(Location(1000, "School", True, x, y, 0, [] , False ,  Circle(Point(x,y), 50), False)) 
+    locations.append(Location(schoolCapacity, "School", True, x, y, 0, [] , False ,  Circle(Point(x,y), 50), False)) 
 for l in range(homes):
     x = randint(0, width) 
     y = randint(0, height) 
-    locations.append(Location(4, "Home", True, x, y , 0, [] , False ,  Circle(Point(x,y), 12), False )) 
+    locations.append(Location(homeCapacity, "Home", True, x, y , 0, [] , False ,  Circle(Point(x,y), 12), False )) 
 
 #create a file to record population stats 
 f = open("stats.csv", "w")
@@ -278,6 +287,7 @@ for t in range(0, 24*7* weeks ):
                         p.currently_infected = False 
                         p.marker.setFill("purple") 
                         p.marker.setOutline("purple") 
+                        l.infected = False 
                         recovered += 1 
                         totalInfected -= 1 
 
